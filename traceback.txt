@@ -1,0 +1,44 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "renpy/common/00start.rpy", line 185, in script
+    python:
+  File "renpy/common/00start.rpy", line 185, in script
+    python:
+  File "renpy/common/00start.rpy", line 186, in <module>
+    renpy.execute_default_statement(True)
+  File "game/script.rpy", line 817, in set_default
+    default allowun_choice = False
+Exception: store.allowun_choice is being given a default a second time.
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\bootstrap.py", line 313, in bootstrap
+    renpy.main.main()
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\main.py", line 525, in main
+    run(restart)
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\main.py", line 139, in run
+    renpy.execution.run_context(True)
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\execution.py", line 892, in run_context
+    context.run()
+  File "renpy/common/00start.rpy", line 185, in script
+    python:
+  File "renpy/common/00start.rpy", line 185, in script
+    python:
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\ast.py", line 900, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\python.py", line 1930, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "renpy/common/00start.rpy", line 186, in <module>
+    renpy.execute_default_statement(True)
+  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\exports.py", line 3452, in execute_default_statement
+    i.set_default(start)
+  File "game/script.rpy", line 817, in set_default
+    default allowun_choice = False
+Exception: store.allowun_choice is being given a default a second time.
+
+Windows-8-6.2.9200
+Ren'Py 7.2.2.491
+Reverie 
+Fri Jun 05 14:00:25 2020
