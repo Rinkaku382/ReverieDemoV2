@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 442: end of line expected.
-    "Is that...you?": if allowm_choice:
-                      ^
+File "game/script.rpy", line 1175: expected end of line
+    stop movie "trauma1.ogv"
+               ^
 
-Ren'Py Version: Ren'Py 7.2.2.491
-Tue Jun 09 21:45:58 2020
+Ren'Py Version: Ren'Py 7.3.5.606
+Fri Jun 12 00:51:02 2020

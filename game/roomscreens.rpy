@@ -51,11 +51,11 @@ screen nightscreenup1:
         hotspot(1546, 478, 117, 191) action Jump("guitn1")
         hotspot(734, 563, 151, 244) action Jump ("roomdownn1")
 
-screen roomdownscreen3g:
+screen roomdownscreen3:
     imagemap:
-        ground "roomd_ghosts.png"
-        idle "roomd_ghosts.png"
-        hover "roomd_ghostsh.png"
+        ground "roomd_aft.png"
+        idle "roomd_aft.png"
+        hover "roomd_afth.png"
         hotspot(1278, 173, 252, 363) action Jump ("window3")
         hotspot(1554, 352, 145, 349) action Jump ("books3")
         hotspot(406, 324, 132, 277) action Jump ("door3")
@@ -65,14 +65,66 @@ screen roomdownscreen3g:
         hotspot(632, 699, 106, 82) action Jump ("phone3")
         hotspot(1133, 619, 182, 203) action Jump ("tv3")
         hotspot(1055, 672, 66, 271) action Jump("cds3")
-        hotspot(1033, 269, 144, 128) action Jump("computer3")
-screen roomupscreen3g:
+        hotspot(1033, 269, 144, 128) action Jump ("computer3")
+screen roomupscreen3:
     imagemap:
-        ground "roomu_ghosts.png"
-        idle "roomu_ghosts.png"
-        hover "roomu_ghostsh.png"
+        ground "roomu_aft.png"
+        idle "roomu_aft.png"
+        hover "roomu_afth.png"
         hotspot(1017, 410, 239, 145) action Jump ("bed3")
         hotspot(728, 268, 91, 223) action Jump ("mirror3")
         hotspot(1264, 294, 75, 100) action Jump ("toy3")
         hotspot(1546, 478, 117, 191) action Jump("guit3")
         hotspot(734, 563, 151, 244) action Jump ("roomdown3")
+
+screen roomdownscreen1g:
+    imagemap:
+        ground "roomd_ghosts.png"
+        idle "roomd_ghosts.png"
+        hover "roomd_ghostsh.png"
+        hotspot(1278, 173, 252, 363) action Jump ("window1g")
+        hotspot(1554, 352, 145, 349) action Jump ("books1g")
+        hotspot(406, 324, 132, 277) action Jump ("door1g")
+        hotspot(691, 278, 177, 347) action Jump ("roomup1g")
+        hotspot(814, 873, 192, 179) action Jump ("plant1g")
+        hotspot(909, 469, 94, 114) action Jump ("trash1g")
+        hotspot(632, 699, 106, 82) action Jump ("phone1g")
+        hotspot(1133, 619, 182, 203) action Jump ("tv1g")
+        hotspot(1055, 672, 66, 271) action Jump("cds1g")
+        hotspot(1033, 269, 144, 128) action Jump("computer1g")
+screen roomupscreen1g:
+    imagemap:
+        ground "roomu_ghosts.png"
+        idle "roomu_ghosts.png"
+        hover "roomu_ghostsh.png"
+        hotspot(1017, 410, 239, 145) action Jump ("bed1g")
+        hotspot(728, 268, 91, 223) action Jump ("mirror1g")
+        hotspot(1264, 294, 75, 100) action Jump ("toy1g")
+        hotspot(1546, 478, 117, 191) action Jump("guit1g")
+        hotspot(734, 563, 151, 244) action Jump ("roomdown1g")
+
+screen nightscreendown2:
+    imagemap:
+        ground "roomd_night.png"
+        idle "roomd_night.png"
+        hover "roomd_nighth.png"
+        hotspot(1278, 173, 252, 363) action Jump ("windown2")
+        hotspot(1554, 352, 145, 349) action Jump ("booksn2")
+        hotspot(406, 324, 132, 277) action Jump ("doorn2")
+        hotspot(691, 278, 177, 347) action Jump ("roomupn2")
+        hotspot(814, 873, 192, 179) action Jump ("plantn2")
+        hotspot(909, 469, 94, 114) action Jump ("trashn2")
+        hotspot(632, 699, 106, 82) action Jump ("phonen2")
+        hotspot(1133, 619, 182, 203) action Jump ("tvn2")
+        hotspot(1055, 672, 66, 271) action Jump("cdsn2")
+        hotspot(1033, 269, 144, 128) action Jump("computern2")
+screen nightscreenup2:
+    imagemap:
+        ground "roomu_night.png"
+        idle "roomu_night.png"
+        hover "roomu_nighth.png"
+        hotspot(1017, 410, 239, 145) action Jump ("bedn2")
+        hotspot(728, 268, 91, 223) action Jump ("mirrorn2")
+        hotspot(1264, 294, 75, 100) action Jump ("toyn2")
+        hotspot(1546, 478, 117, 191) action Jump("guitn2")
+        hotspot(734, 563, 151, 244) action Jump ("roomdownn2")

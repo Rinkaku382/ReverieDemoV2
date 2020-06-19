@@ -21,6 +21,9 @@ label start:
     play music "roomd_bgm.ogg" fadein (3)
     $ mood = 50
     $ menth = 0
+    $ mem = 0
+    $ trauma = 0
+    $ guilt = False
     $ sofiatalk = False
     $ sofiatalk2 = False
     $ sofia = 5
@@ -293,7 +296,7 @@ label mirror2:
         hide mirror
         with dissolve
         jump roomupscreen2
-    if sofiatalk2 == True and mood == 55 or mood == 45:
+    if sofiatalk2 == True and mood >= 55 or mood <= 45:
         """
         There's a garden in the reflection.
 
@@ -305,7 +308,7 @@ label mirror2:
             "Yes.":
                 hide mirror
                 with dissolve
-                jump memories2
+                jump memories
             "Not now.":
                 hide mirror
                 with dissolve
@@ -349,6 +352,8 @@ label guit2:
         It's someone's present...but by whom?
 
         You start to think that maybe you could play it.
+
+        Maybe you still remember that song...
         """
         menu:
             "Just a little...":
@@ -497,7 +502,7 @@ label sofianeut2:
             s """
             Yes, since before you lost your memory.
 
-            In fact, I waited for some days, but...
+            In fact, I've been waiting for days, but...
 
             You're here, now, so that's the important thing!
 
@@ -729,15 +734,17 @@ label sofiatoy:
     with slowfade
     jump roomdownscreen2
 
-label memories2:
+label memories :
     if mood <= 45:
         stop music fadeout (2)
         scene black
         with slowfade
         $ renpy.pause(1.5)
-        play movie "trauma.ogv" loop
+        play movie "trauma1.ogv" loop
         show movie with slowfade
         play music "trauma_bgm.ogg" fadein (3)
+        $ trauma += 1
+        $ menth += 1
         """
         You find yourself in a dark place, ruled by sad and heavy feelings.
 
@@ -762,51 +769,123 @@ label memories2:
 
         Who am I?
 
-        Asking yourself those questions won't solve anything.
+        Asking yourself those questions won't solve anything, here.
 
         You deserve no love.
 
         No love at all.
+
+        You always only cared about yourself.
+
+        Is there even something you care about?
         """
-        if toy == True:
-            scm """
-            If you don't even care about a teddy bear's arm...
+        menu:
+            "Sofia's gift." if toy:
+                pass
+                if allowrep_choice == False:
+                    $ guilt = True
+                    scm """
+                    Her gift?
 
-            How could you even live in the everyday world?
+                    You didn't even fixed it.
 
-            You don't even care about the presents your dear one give to you.
-            """
-        if guit == True:
-            scm """
-            It seems like you're avoiding the memories of me.
+                    If you can't even do something so little...
 
-            Neglecting your past.
+                    How could you live in the everyday world?
 
-            And not taking care of your present.
+                    You don't even care about the presents your dear ones give to you.
+                    """
+                if allowrep_choice == True:
+                    $ guilt = True
+                    scm """
+                    You took the time to fix it, sure.
 
-            But it's your choice, it's all up to you.
-            """
+                    But are you sure you've done it for her and not for yourself?
+
+                    That you did it to honour the memories of her and not to gain some benefits from it?
+
+                    Something like a positive ending.
+
+                    Or the end of your solitude.
+
+                    Is this the person you truly are or not?
+
+                    You care about her?
+
+                    Even though you don't remember anything about her?
+
+                    That really is particular, you know?
+
+                    Unexpected.
+
+                    But understandable.
+
+                    After all...
+
+                    Who does not want to be loved?
+
+                    Are there people who desire to be alone?
+
+                    You've seen a safe spot in which to hide from your loneliness...
+
+                    And, right away, you took the occasion and took advantage of it.
+
+                    It's only human to do that.
+                    """
+            "That guitar..." if guit:
+                pass
+                if allowguit_choice == False:
+                    scm """
+                    You barely looked at it, didn't you?
+
+                    It seems like you're avoiding the memories that tie you to me.
+
+                    Neglecting your past, are you?
+
+                    And not taking care of your present, neither.
+
+                    But it's your choice, it's all up to you.
+
+                    Do you feel good about it?
+
+                    Is this how you want to confront the past?
+                    """
+                if allowguit_choice == True:
+                    scm """
+                    So you're starting to remember...
+
+                    That's new of you.
+
+                    But weren't you guided to do it?
+
+                    Wasn't there someone that told you about that guitar?
+
+                    And I bet you know who gave it to you, but you don't have the courage to say it.
+
+                    That's typical.
+                    """
+        scm """
+        Have you ever asked yourself...
+
+        Who are you?
+
+        Someone who has no memory is nobody.
+
+        Who are you, without your past?
+
+        Only a name stumbling in solitude and darkness.
+
+        Looking for the lost past, desperate to find it.
+
+        And are you even sure you can find what you are looking for?
         """
-        You're scared.
-
-        You know that shadow comes from your memories, but...
-
-        You try to remember.
-
-        Hard.
-
-        Harder.
-
-        But nothing comes to your mind.
-
-        Absolutely nothing.
+        """
+        You feel scared.
 
         And the scene starts to disappear.
         """
-        show black
-        with fadehold
         stop music fadeout (3)
-        return
+        jump night1
     if mood >= 55:
         stop music fadeout (2)
         scene black
@@ -815,11 +894,11 @@ label memories2:
         scene mem1
         with slowfade
         play music "mem_bgm.ogg" fadein (3)
-        default allowuniq_choice = False
-        default allowfriend_choice = False
-        default allow_choice = False
-        $ peaceful = False
-        $ confused = False
+        $ mem += 1
+        $ sofiaknow = False
+        $ melody = False
+        $ place = False
+        $ knowyou = False
         """
         A foggy and pale garden.
 
@@ -879,7 +958,8 @@ label memories2:
         And yet, I don't have the slightest idea of what to say.
         """
         menu:
-            "I think I saw you in a memory." if allowguit_choice:
+            "I think I saw you in a memory." if guit:
+                $ melody = True
                 pass
                 stm """
                 You saw me?
@@ -915,7 +995,7 @@ label memories2:
 
                         And about me, too.
                         """
-            "Sofia was talking about you...?" if allowrep_choice:
+            "Sofia was talking about you...?" if toy:
                 pass
                 stm """
                 Hmm.
@@ -938,6 +1018,7 @@ label memories2:
                 """
                 menu:
                     "You know her?":
+                        $ sofiaknow = True
                         stm """
                         I know you, so of course I know her.
 
@@ -978,19 +1059,26 @@ label memories2:
 
                         Do you get what I mean?
                         """
-                    "You're changing the subject.":
-                        stm """
-                        Well, there's nothing much I can say about that.
+        stm """
+        You know...
 
-                        I knew you and you told everything about me to her.
+        I understand how difficult it is to lose contact with the present.
 
-                        There's nothing more than that.
+        You start to wander between past and present with no precise direction.
 
-                        Apart from what you told me, I don't even know that much about her.
+        And everything is confused, everything is blurred.
 
-                        Only that you two are dear friends, even more than how we were.
-                        """
+        Nothing seems real anymore and all the people around us can't reach us in any way.
+
+        We become blind and, then, we start loosing everything in our constant research of the past.
+
+        We eventually lose ourselves in the past.
+
+        So...be careful, ok?
+        """
+        menu:
             "What is this place?":
+                $ place = True
                 stm """
                 This place...
 
@@ -1000,11 +1088,36 @@ label memories2:
 
                 Something like a refuge from everything and everyone.
 
+                You know, when people feel attacked or trapped by the world around...
+
+                All they can do is retiring in a safe place.
+
+                Somewhere they know they won't be hurted.
+
+                That is what this place has been.
+
+                And maybe it still is.
+
+                At least for me, but I don't know what it is for you.
+
                 In this place we knew each other...and left each other.
+
+                But what is it, now?
+
+                Nothing more than a reverie, i guess.
+
+                A place we both belong to and from which is hard to separate.
+
+                But still, nothing more than a reverie.
+
+                Oh, I'm sorry.
+
+                It seems that seeing you makes me too much melancholic, right?
 
                 But that's not important, now.
                 """
             "How do you know me?":
+                $ knowyou = True
                 stm """
                 I don't know how useful my answer could be, but...
 
@@ -1015,18 +1128,49 @@ label memories2:
                 About what it hides from all of us.
 
                 And how to survive to it, when possible.
+
+                Who can you trust?
+
+                What can you do to avoid the daily suffering?
+
+                Even if these questions seem to have no answer at all...
+
+                We used to find them in poetry and art.
+
+                I know, it may seem ridiculus.
+
+                And maybe, thinking about it now...it may be.
+
+                But that's what we believed in.
+
+                Of course, now things are different.
                 """
-        
+        """
+        As he talks, a tear starts to warm your left cheek.
+
+        The entire landscape in front of you starts becoming paler.
+
+        And then starts disappearing in the darkness, just as it appeared.
+        """
+        stop music fadeout (3)
+        jump night1
 
 ####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################                            F I R S T   N I G H T   P A S S A G E #####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
 
 label night1:
-    stop music fadeout (3)
+    stop movie
+    hide movie with slowfade
     scene roomd_night
     with slowfade
     play music "roomn_bgm.ogg" fadein (3)
     """
-    aaa
+    Late night.
+
+    You open your eyes in your apartment, as if you've fell asleep.
+
+    Was it only a dream?
+
+    Or was it, in fact, reality?
     """
     jump roomdownscreenn1
 
@@ -1071,6 +1215,7 @@ label bedn1:
     menu:
         "Yes.":
             "As you get in the bed, your eyes instantly close."
+            stop music fadeout (3)
             jump narrator
         "No.":
             "Maybe later"
@@ -1149,17 +1294,701 @@ label doorn1:
     jump roomdownscreenn1
 
 label computern1:
-    scene aaa
-    with slowfade
     """
     She's sleeping.
 
     It's better to not disturb her.
     """
+    jump roomdownscreenn1
+
+####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################START PASSAGE 2
+#####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
+
+label narrator:
+    scene narrator
+    with slowfade
+    play music "narr_bgm.ogg" fadein (3)
+    """
+    And here it comes.
+
+    Our first meeting.
+
+    Were your memories delicate?
+
+    Or were them painful?
+
+    Don't worry.
+
+    You're safe now, in your dreams.
+
+    You may not be in your apartment.
+
+    Or when you talk with someone.
+
+    Or even when you try to recall what you have lost.
+
+    But at least here nothing can hurt you.
+
+    Only doubts, but are you sure you want to bring them with you along the dream?
+
+    It wouldn't be a good idea.
+
+    But the choice is yours.
+
+    I'm just a spectator to all this.
+
+    I always watch, and sometimes I ask questions.
+
+    But not today, so worry not.
+
+    And proceed until you reach tomorrow...
+    """
+    if guilt == False:
+        jump day2
+    if guilt == True:
+        jump day2ghost
+
+####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################                S T A R T  D A Y 2  N O R M A L #####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
+label day2:
+    stop music fadeout (3)
+    scene roomd_aft
+    with slowfade
+    play music "roomd_bgm.ogg" fadein (3)
+    $ mood = 50
+    $ menth = 0
+    $ mem = 0
+    $ trauma = 0
+    $ guilt = False
+    $ sofiatalk = False
+    $ sofiatalk2 = False
+    $ sofia = 5
+    $ guit = False
+    $ guitcheck = False
+    $ toy = False
+    $ toycheck = False
+    $ strangeman = False
+    $ scaryman = False
+    $ teddyrep = False
+    default allowm_choice = False
+    """
+    aaa
+    """
+    jump roomdownscreen3
+
+label sofiagoodfade3:
+    scene sofiah_d
+    $ renpy.pause(0.5)
+    scene roomd_aft
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen3
+label sofiasadfade3:
+    scene sofias_d
+    $ renpy.pause(0.5)
+    scene roomd_aft
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen3
+label sofianeutfade3:
+    scene sofian_d
+    $ renpy.pause(0.5)
+    scene roomd_aft
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen3
+
+label roomdown3:
+    scene roomu_aft
+    $ renpy.pause(0.5)
+    scene roomd_aft
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen3
+label roomdownscreen3:
+    scene roomd_aft
+    call screen roomdownscreen3
+
+label roomup3:
+    scene roomd_aft
+    $ renpy.pause(0.5)
+    scene roomu_aft
+    with fade
+    $ renpy.pause(1)
+    jump roomupscreen3
+label roomupscreen3:
+    scene roomu_aft
+    call screen roomupscreen3
+label window3:
+    """
+    aaa
+    """
+    jump roomdownscreen3
+label bed3:
+    """
+    You are not tired, now.
+    """
+    jump roomupscreen3
+label books3:
+    """
+    aaa
+    """
+    jump roomdownscreen3
+label plant3:
+    show plant
+    with dissolve
+    """
+    Flowers are taking their time to grow.
+    """
+    hide plant
+    with dissolve
+    jump roomdownscreen3
+label trash3:
+    show trash
+    with dissolve
+    """
+    The usual trash bin.
+
+    Nothing new from it.
+    """
+    hide trash
+    with dissolve
+    jump roomdownscreen3
+label phone3:
+    show phone
+    with dissolve
+    """
+    aaa
+    """
+    hide phone
+    with dissolve
+    jump roomdownscreen3
+label tv3:
+    """
+    aaa
+    """
+    jump roomdownscreen3
+label cds3:
+    """
+    aaa
+    """
+    jump roomdownscreen3
+label toy3:
+    show teddybrok
+    with dissolve
+    """
+    aaa
+    """
+    hide teddybrok
+    with dissolve
+    jump roomupscreen3
+label mirror3:
+    show mirror
+    with dissolve
+    if sofiatalk2 == False:
+        """
+        There's only you.
+        """
+        hide mirror
+        with dissolve
+        jump roomupscreen3
+    if sofiatalk2 == True and mood >= 55 or mood <= 45:
+        """
+        There's a garden in the reflection.
+
+        It looks as if it's inviting you to enter.
+
+        Do you go through the mirror?
+        """
+        menu:
+            "Yes.":
+                hide mirror
+                with dissolve
+                jump memories2
+            "Not now.":
+                hide mirror
+                with dissolve
+                jump roomupscreen3
+label guit3:
+    show guitar
+    with dissolve
+    """
+    aaa
+    """
+    hide guitar
+    with dissolve
+    jump roomupscreen3
+label door3:
+    "I can't get outside, it's tightly closed."
+    jump roomdownscreen3
+
+label computer3:
+    if sofiatalk == False:
+        jump sofianeut3
+    if sofiatalk2 == True and mood >= 55:
+        jump sofiagood3
+    if sofiatalk2 == True and mood <= 45:
+        jump sofiasad3
+    if sofia >= 6 and guit == False:
+        "Looks like she'll be occupied for some time."
+        jump roomdownscreen3
+    if sofia <= 4 and toy == False:
+        "Looks like she'll be occupied for some time."
+        jump roomdownscreen3
+    if guit == True:
+        jump sofiaguit
+    if toy == True:
+        jump sofiatoy
+
+label sofiagood3:
+    scene sofiah_d
+    with slowfade
+    s """
+    It's nice seeing you smiling like this, you know?
+
+    Uhm, looks like your hair is a little messy!
+
+    Have you checked on yourself in the mirror, this morning?
+    """
+    jump sofiagoodfade3
+label sofiasad3:
+    scene sofias_d
+    with slowfade
+    s """
+    Is it me or you seem a little down?
+
+    You look so tired and messy, too!
+
+    Have you checked on yourself in the mirror, this morning?
+    """
+    jump sofiasadfade3
+label sofianeut3:
+    scene sofias_d
+    with slowfade
+    $ sofiatalk = True
+    """
+    aaa
+    """
+    scene roomd_dawn
+    with slowfade
+    jump roomdownscreen3
+
+####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################                S T A R T  D A Y 2  G H O S T S #####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
+label day2ghost:
+    stop music fadeout (3)
+    scene roomd_ghosts
+    with slowfade
+    play music "roomg_bgm.ogg" fadein (3)
+    $ mood = 50
+    $ menth = 0
+    $ mem = 0
+    $ trauma = 0
+    $ guilt = False
+    $ sofiatalk = False
+    $ sofiatalk2 = False
+    $ sofia = 5
+    $ guit = False
+    $ guitcheck = False
+    $ toy = False
+    $ toycheck = False
+    $ strangeman = False
+    $ scaryman = False
+    $ teddyrep = False
+    default allowm_choice = False
+    """
+    aaa
+    """
+    jump roomdownscreen1g
+
+label sofiagoodfade1g:
+    scene sofiah_d
+    $ renpy.pause(0.5)
+    scene roomd_ghosts
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen1g
+label sofiasadfade1g:
+    scene sofias_d
+    $ renpy.pause(0.5)
+    scene roomd_ghosts
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen1g
+label sofianeutfade1g:
+    scene sofian_d
+    $ renpy.pause(0.5)
+    scene roomd_ghosts
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen1g
+
+label roomdown1g:
+    scene roomu_ghosts
+    $ renpy.pause(0.5)
+    scene roomd_ghosts
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreen1g
+label roomdownscreen1g:
+    scene roomd_ghosts
+    call screen roomdownscreen1g
+
+label roomup1g:
+    scene roomd_ghosts
+    $ renpy.pause(0.5)
+    scene roomu_ghosts
+    with fade
+    $ renpy.pause(1)
+    jump roomupscreen1g
+label roomupscreen1g:
+    scene roomu_ghosts
+    call screen roomupscreen1g
+label window1g:
+    """
+    aaa
+    """
+    jump roomdownscreen1g
+label bed1g:
+    """
+    You are not tired, now.
+    """
+    jump roomupscreen1g
+label books1g:
+    """
+    aaa
+    """
+    jump roomdownscreen1g
+label plant1g:
+    show plant
+    with dissolve
+    """
+    Flowers are taking their time to grow.
+    """
+    hide plant
+    with dissolve
+    jump roomdownscreen1g
+label trash1g:
+    show trash
+    with dissolve
+    """
+    The usual trash bin.
+
+    Nothing new from it.
+    """
+    hide trash
+    with dissolve
+    jump roomdownscreen1g
+label phone1g:
+    show phone
+    with dissolve
+    """
+    aaa
+    """
+    hide phone
+    with dissolve
+    jump roomdownscreen1g
+label tv1g:
+    """
+    aaa
+    """
+    jump roomdownscreen1g
+label cds1g:
+    """
+    aaa
+    """
+    jump roomdownscreen1g
+label toy1g:
+    show teddybrok
+    with dissolve
+    """
+    An old teddy bear.
+
+    You're unable to toss it away.
+
+    Even after all this time, you can't undestand why.
+
+    Maybe you're sill connected with the person who gave it to you.
+    """
+    hide teddybrok
+    with dissolve
+    jump roomupscreen1g
+label mirror1g:
+    show mirror
+    with dissolve
+    if sofiatalk2 == False:
+        """
+        There's only you.
+        """
+        hide mirror
+        with dissolve
+        jump roomupscreen1g
+    if sofiatalk2 == True and mood >= 55 or mood <= 45:
+        """
+        There's a garden in the reflection.
+
+        It looks as if it's inviting you to enter.
+
+        Do you go through the mirror?
+        """
+        menu:
+            "Yes.":
+                hide mirror
+                with dissolve
+                jump memories2
+            "Not now.":
+                hide mirror
+                with dissolve
+                jump roomupscreen1g
+label guit1g:
+    show guitar
+    with dissolve
+    """
+    This guitar...
+
+    As you watch it, you remember playing it sometimes.
+
+    But how much time has passed since then?
+    """
+    hide guitar
+    with dissolve
+    jump roomupscreen1g
+label door1g:
+    "I can't get outside, it's tightly closed."
+    jump roomdownscreen1g
+
+label computer1g:
+    if sofiatalk == False:
+        jump sofianeut1g
+    if sofiatalk2 == True and mood >= 55:
+        jump sofiagood1g
+    if sofiatalk2 == True and mood <= 45:
+        jump sofiasad1g
+    if sofia >= 6 and guit == False:
+        "Looks like she'll be occupied for some time."
+        jump roomdownscreen1g
+    if sofia <= 4 and toy == False:
+        "Looks like she'll be occupied for some time."
+        jump roomdownscreen1g
+    if guit == True:
+        jump sofiaguit
+    if toy == True:
+        jump sofiatoy
+
+label sofiagood1g:
+    scene sofiah_d
+    with slowfade
+    s """
+    It's nice seeing you smiling like this, you know?
+
+    Uhm, looks like your hair is a little messy!
+
+    Have you checked on yourself in the mirror, this morning?
+    """
+    jump sofiagoodfade1g
+label sofiasad1g:
+    scene sofias_d
+    with slowfade
+    s """
+    Is it me or you seem a little down?
+
+    You look so tired and messy, too!
+
+    Have you checked on yourself in the mirror, this morning?
+    """
+    jump sofiasadfade1g
+label sofianeut1g:
+    scene sofias_d
+    with slowfade
+    $ sofiatalk = True
+    """
+    """
+    scene roomd_dawn
+    with slowfade
+    jump roomdownscreen1g
+
+label memories2:
+    if mood <= 45:
+        stop music fadeout (2)
+        scene black
+        with slowfade
+        $ renpy.pause(1.5)
+        play movie "trauma1.ogv" loop
+        show movie with slowfade
+        play music "trauma_bgm.ogg" fadein (3)
+        $ trauma += 1
+        $ menth += 1
+        """
+        """
+        stop music fadeout (3)
+        jump night1
+    if mood >= 55:
+        stop music fadeout (2)
+        scene black
+        with slowfade
+        $ renpy.pause(1.5)
+        scene mem1
+        with slowfade
+        play music "mem_bgm.ogg" fadein (3)
+        $ mem += 1
+        """
+        """
+        stop music fadeout (3)
+        jump night2
+
+####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################                            S E C O N D   N I G H T   P A S S A G E #####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
+
+label night2:
+    stop movie
+    hide movie with slowfade
     scene roomd_night
     with slowfade
-    jump roomdownscreenn1
+    play music "roomn_bgm.ogg" fadein (3)
+    """
+    aaa
+    """
+    jump roomdownscreenn2
+
+label roomdownn2:
+    scene roomu_night
+    $ renpy.pause(0.5)
+    scene roomd_night
+    with fade
+    $ renpy.pause(1)
+    jump roomdownscreenn2
+label roomdownscreenn2:
+    scene roomd_night
+    call screen nightscreendown2
+
+label roomupn2:
+    scene roomd_night
+    $ renpy.pause(0.5)
+    scene roomu_night
+    with fade
+    $ renpy.pause(1)
+    jump roomupscreenn2
+label roomupscreenn2:
+    scene roomu_night
+    call screen nightscreenup2
+label windown2:
+    """
+    Outside the window the streets look solitary.
+
+    There's no one around.
+
+    And the moon is high and pale.
+
+    It seems to be watching you.
+    """
+    jump roomdownscreenn2
+label bedn2:
+    """
+    You feel so tired...
+
+    Do you want to sleep?
+    """
+    menu:
+        "Yes.":
+            "As you get in the bed, your eyes instantly close."
+            stop music fadeout (3)
+            jump narrator2
+        "No.":
+            "Maybe later"
+            jump roomupscreenn2
+label booksn2:
+    """
+    You're too tired to read now.
+    """
+    jump roomdownscreenn2
+label plantn2:
+    show plant
+    with dissolve
+    """
+    The plant seems melancholic with this light.
+    """
+    hide plant
+    with dissolve
+    jump roomdownscreenn2
+label trashn2:
+    show trash
+    with dissolve
+    """
+    The usual trash bin.
+    """
+    hide trash
+    with dissolve
+    jump roomdownscreenn2
+label phonen2:
+    show phone
+    with dissolve
+    """
+    No messages left on the answering service.
+    """
+    hide phone
+    with dissolve
+    jump roomdownscreenn2
+label tvn2:
+    """
+    It's turned off.
+    """
+    jump roomdownscreenn2
+label cdsn2:
+    """
+    Ever wandered what would happen if these CDs fell?
+    """
+    jump roomdownscreenn2
+label toyn2:
+    show teddybrok
+    with dissolve
+    """
+    It's as if it is smiling at you.
+    """
+    hide teddybrok
+    with dissolve
+    jump roomupscreenn2
+label mirrorn2:
+    show mirror
+    with dissolve
+    """
+    There is only you, now.
+    """
+    hide mirror
+    with dissolve
+    jump roomupscreenn2
+label guitn2:
+    show guitar
+    with dissolve
+    """
+    It's too late to play it.
+    """
+    hide guitar
+    with dissolve
+    jump roomupscreenn2
+label doorn2:
+    "I can't get outside, it's tightly closed."
+    jump roomdownscreenn2
+
+label computern2:
+    """
+    She's sleeping.
+
+    It's better to not disturb her.
+    """
+    jump roomdownscreenn2
 
 ####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################START PASSAGE 3 #####################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
 
-label narrator:
+label narrator2:
+    scene narrator
+    with slowfade
+    play music "narr_bgm.ogg" fadein (3)
+    """
+    aaa
+    """
+    if guilt == False:
+        jump day3
+    if guilt == True:
+        jump day3ghost
+
+    stop music fadeout (3)
+    scene black
+    with slowfade
+    return
