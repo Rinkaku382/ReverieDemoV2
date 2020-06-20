@@ -12,6 +12,8 @@ define s = Character("Sofia", color="#C69AF9")
 define ug = Character("Unknown Girl", color="#C69AF9")
 define stm = Character("Strange Man", color="#7BC2F4")
 define scm = Character("Scary Man", color="#ED5259")
+define uv = Character("Unknown Voice", color="#C69AF9")
+define m = Character("Mom")
 
 
 label start:
@@ -382,7 +384,7 @@ label guit2:
                 with dissolve
                 jump roomupscreen2
 label door2:
-    "I can't get outside, it's tightly closed."
+    "You can't get outside, it's tightly closed."
     jump roomdownscreen2
 
 label computer2:
@@ -1117,7 +1119,6 @@ label memories :
                 But that's not important, now.
                 """
             "How do you know me?":
-                $ knowyou = True
                 stm """
                 I don't know how useful my answer could be, but...
 
@@ -1290,7 +1291,7 @@ label guitn1:
     with dissolve
     jump roomupscreenn1
 label doorn1:
-    "I can't get outside, it's tightly closed."
+    "You can't get outside, it's tightly closed."
     jump roomdownscreenn1
 
 label computern1:
@@ -1353,25 +1354,21 @@ label day2:
     stop music fadeout (3)
     scene roomd_aft
     with slowfade
-    play music "roomd_bgm.ogg" fadein (3)
+    play music "rooma_bgm.ogg" fadein (3)
     $ mood = 50
-    $ menth = 0
-    $ mem = 0
-    $ trauma = 0
-    $ guilt = False
     $ sofiatalk = False
-    $ sofiatalk2 = False
-    $ sofia = 5
-    $ guit = False
-    $ guitcheck = False
-    $ toy = False
-    $ toycheck = False
-    $ strangeman = False
-    $ scaryman = False
-    $ teddyrep = False
-    default allowm_choice = False
+    $ phans = False
+    $ water = False
     """
-    aaa
+    Early afternoon.
+
+    You slowly wake up...
+
+    But you don't know which day it is.
+
+    How much time has passed?
+
+    You have no idea.
     """
     jump roomdownscreen3
 
@@ -1405,8 +1402,14 @@ label roomdown3:
     $ renpy.pause(1)
     jump roomdownscreen3
 label roomdownscreen3:
-    scene roomd_aft
-    call screen roomdownscreen3
+    if phans == False:
+        stop music fadeout (1)
+        play music "ringtone.ogg" fadein (2)
+        scene roomd_aft
+        call screen roomdownscreen3
+    if phans == True:
+        scene roomd_aft
+        call screen roomdownscreen3
 
 label roomup3:
     scene roomd_aft
@@ -1420,7 +1423,11 @@ label roomupscreen3:
     call screen roomupscreen3
 label window3:
     """
-    aaa
+    Outside the apartment the sun is high.
+
+    It's so bright that you have difficulties at looking at the street below.
+
+    Are the ones you see down there people?
     """
     jump roomdownscreen3
 label bed3:
@@ -1430,15 +1437,34 @@ label bed3:
     jump roomupscreen3
 label books3:
     """
-    aaa
+    You take a book from the shelf.
+
+    It's a collection of storyboard of animated movies.
+
+    Each page is filled with notes...
+
+    But they're all in Japanese so you can't understand them.
     """
     jump roomdownscreen3
 label plant3:
     show plant
     with dissolve
-    """
-    Flowers are taking their time to grow.
-    """
+    if water == False:
+        """
+        Flowers are taking their time to grow.
+
+        And it seems to need some water...
+
+        Do you water it?
+        """
+        menu:
+            "Yes.":
+                $ water = True
+                "The leaves seem to be brighter, now."
+            "Maybe later.":
+                "You leave it as it is."
+    if water == True:
+        "Those little flowers cute, don't you think?"
     hide plant
     with dissolve
     jump roomdownscreen3
@@ -1456,46 +1482,210 @@ label trash3:
 label phone3:
     show phone
     with dissolve
-    """
-    aaa
-    """
+    if phans == False:
+        $ phans = True
+        stop music fadeout (1)
+        play music "rooma_bgm.ogg" fadein (2)
+        """
+        You lift the receiver.
+
+        A feminine voice greets you softly.
+
+        IIt recalls something from within you.
+
+        Something distant and dear, but lost.
+        """
+        uv """
+        Hi, dear...
+
+        It's me, your mother.
+        """
+        m """
+        I've been calling you for so long...
+
+        And you've never answered.
+
+        I left lots of messages, you know?
+
+        Have you listened to them?
+        """
+        menu:
+            "I did.":
+                m """
+                I'm glad...
+                """
+            "Of course...":
+                m """
+                You haven't, did you?
+
+                But don't worry, I knew it already.
+                """
+        m """
+        I'm sorry if I worry so much.
+
+        Even if I know you have things to do...
+
+        I can't help but be worried about you.
+
+        But you never answer...and that hurts.
+        """
+        menu:
+            "I'm sorry...":
+                $ mood += 5
+                m "I know you are."
+            "I'm always busy.":
+                $ mood -= 5
+                m "Sure..."
+        m """
+        Anyway, how are things going?
+
+        And what about Sofia?
+
+        Do you still hear from her?
+
+        She was such a gentle girl...
+
+        It's a pity you two got separated.
+
+        But I guess that's how life goes and we can't always be with who we want.
+        """
+        menu:
+            "She helps a lot.":
+                m """
+                That makes me very happy, you know?
+
+                I'm always happy when I know you two are together.
+                """
+            "She's ok, I guess.":
+                m """
+                You guess?
+
+                So you two don't get along that well, anymore?
+
+                Oh, sorry, sometimes I make my own conclusions, but that's not my business.
+                """
+        m """
+        You know, I was looking at a photo of you two, yesterday.
+
+        It reminded me so many things...
+
+        It doesn't happen so often, for me, to remember the past.
+
+        So I lose contact with it.
+
+        But when I saw your faces...
+
+        Something started to shine in my mind, you know?
+
+        And I wanted to tell you about it so much...
+
+        Oh and then I saw a photo of both of us with your uncle!
+
+        He always reminded me of your father.
+
+        Is he still teaching you at University?
+        """
+        menu:
+            "I finished University...":
+                m """
+                Oh, really...?
+
+                I...
+
+                I didn't knew at all...
+
+                I was sure this was your second year.
+
+                Well, that's funny, it seems like my age is starting to show its effects!
+
+                Don't worry, then.
+
+                Maybe I'll call him now, you know?
+
+                That would be wonderful!
+
+                I haven't heard him for years.
+                """
+            "Uhmm...yes, of course.":
+                m """
+                Oh, that makes me so happy!
+
+                He's always been such a good teacher...
+
+                It was so funny when I discovered he was your teacher!
+
+                I laughed for an entire day, remember?
+                """
+        m """
+        Well, I think I'll call him, now...
+
+        See you soon, ok?
+        """
+        menu:
+            "Ok, see you.":
+                m "And thank you..."
+            "Bye.":
+                m "Yes, bye."
+    if phans == True:
+        """
+        There are no messages left.
+        """
     hide phone
     with dissolve
     jump roomdownscreen3
 label tv3:
     """
-    aaa
+    On the screen there is a scene from a movie you barely remember.
+
+    Three men are seated at a small table.
+
+    They're discussing and laughing, lightly...
+
+    Yet there's an aura of danger lingering around them.
     """
     jump roomdownscreen3
 label cds3:
     """
-    aaa
+    You take a CD from the pile.
+
+    As you look at its cover you start to remember it.
+
+    It was one of your favourites...
+
+    But that was a long time ago.
     """
     jump roomdownscreen3
 label toy3:
-    show teddybrok
-    with dissolve
-    """
-    aaa
-    """
-    hide teddybrok
-    with dissolve
+    if allowrep_choice == False:
+        show teddybrok
+        with dissolve
+        """
+        It just stays there, looking at you with a missing arm.
+        """
+        hide teddybrok
+        with dissolve
+    if allowrep_choice == True:
+        show teddyrep
+        with dissolve
+        """
+        It seems strangely happier now that its arm is fixed.
+        """
+        hide teddyrep
+        with dissolve
     jump roomupscreen3
 label mirror3:
     show mirror
     with dissolve
-    if sofiatalk2 == False:
+    if sofiatalk == False:
         """
         There's only you.
         """
         hide mirror
         with dissolve
         jump roomupscreen3
-    if sofiatalk2 == True and mood >= 55 or mood <= 45:
+    if sofiatalk == True and mood >= 55 or mood <= 45:
         """
-        There's a garden in the reflection.
-
-        It looks as if it's inviting you to enter.
+        The garden is waiting for you.
 
         Do you go through the mirror?
         """
@@ -1512,63 +1702,278 @@ label guit3:
     show guitar
     with dissolve
     """
-    aaa
+    It stand silent in the corner.
     """
+    if allowguit_choice == True:
+        "Watching it reminds you of that melody..."
     hide guitar
     with dissolve
     jump roomupscreen3
 label door3:
-    "I can't get outside, it's tightly closed."
+    "You can't get outside, it's tightly closed."
     jump roomdownscreen3
 
 label computer3:
-    if sofiatalk == False:
+    if phans == False:
+        "I should answer the phone."
+        jump roomdownscreen3
+    if phans == True and sofiatalk == False:
         jump sofianeut3
     if sofiatalk2 == True and mood >= 55:
         jump sofiagood3
     if sofiatalk2 == True and mood <= 45:
         jump sofiasad3
-    if sofia >= 6 and guit == False:
-        "Looks like she'll be occupied for some time."
-        jump roomdownscreen3
-    if sofia <= 4 and toy == False:
-        "Looks like she'll be occupied for some time."
-        jump roomdownscreen3
-    if guit == True:
-        jump sofiaguit
-    if toy == True:
-        jump sofiatoy
 
 label sofiagood3:
-    scene sofiah_d
+    scene sofiah_a
     with slowfade
-    s """
-    It's nice seeing you smiling like this, you know?
+    """
+    She's sleeping in front of the computer...
 
-    Uhm, looks like your hair is a little messy!
-
-    Have you checked on yourself in the mirror, this morning?
+    She seems happy.
     """
     jump sofiagoodfade3
 label sofiasad3:
-    scene sofias_d
+    scene sofias_a
     with slowfade
-    s """
-    Is it me or you seem a little down?
+    """
+    She's sleeping in front of the computer...
 
-    You look so tired and messy, too!
-
-    Have you checked on yourself in the mirror, this morning?
+    Looks like she's a little sad.
     """
     jump sofiasadfade3
 label sofianeut3:
-    scene sofias_d
+    scene sofian_a
     with slowfade
     $ sofiatalk = True
+    $ nofeel = False
     """
-    aaa
+    As you sit at the computer you notice that Sofia is there again, waiting for you.
+
+    She's reading a book but you can't read the title.
+
+    It surely is voluminous but she doesn't seem to mind that so much.
     """
-    scene roomd_dawn
+    s """
+    Oh, hi there!
+
+    Sorry, I was just passing the time.
+
+    How are you today?
+
+    You seem so...sad.
+
+    Did something happen?
+    """
+    menu:
+        "My mother called...":
+            """
+            She seems surprised but happy.
+            """
+    s """
+    Your mother?
+
+    I haven't seen her in ages!
+
+    How is she doing?
+
+    Is everything alright?
+    """
+    menu:
+        "I think she lost her memory.":
+            s """
+            Oh...
+
+            Well, yeah...
+
+            It's been quite some time since she started losing it.
+
+            She suffers from an illness...
+
+            I didn't know if it was alright to tell you this or not.
+
+            I'm sorry...
+            """
+            menu:
+                "Maybe I suffer from it too?":
+                    $ mood += 5
+                    s """
+                    No, II don't think so...
+
+                    She still remembers things, sometimes.
+
+                    You're different...
+
+                    You lost everything in the blink of an eye.
+
+                    And you're slowly finding and putting the pieces together.
+
+                    But she...
+
+                    I think she won't be able to do that.
+                    """
+                "How...should I feel?":
+                    $ mood -= 5
+                    s """
+                    W-what...do you mean?
+                    """
+                    menu:
+                        "Should I hate myself...":
+                            menu:
+                                "For not feeling anything?":
+                                    $ nofeel = True
+                                    s """
+                                    I don't think you should...
+
+                                    It's not your fault if...
+
+                                    If you can't remember her and if you can't feel anything about her.
+
+                                    It really is not your fault.
+
+                                    So don't blame yourself...
+
+                                    Please...
+                                    """
+                        "I don't even remember her.":
+                            s """
+                            I imagined that...
+
+                            But there's not so much you can do, for now.
+
+                            You're locked in your own loss, so all you can do is trying to escape from it.
+
+                            I think that when you'll get out of this everything will be better...
+                            """
+    s """
+    Talking about memories...
+
+    Did you managed to remember something?
+    """
+    menu:
+        "I saw an...old friend.":
+            """
+            Wait!
+
+            You mean...
+
+            In your apartment, or...?
+            """
+    menu:
+        "No, I saw him in my memories.":
+            $ mood += 5
+            s """
+            In your memories...
+
+            So they really are coming back, piece by piece!
+
+            That makes me so happy...!
+            """
+        "No, it happened through the mirror.":
+            $ mood -= 5
+            s """
+            Through the mirror?
+
+            Do you mean that you...passed through the mirror?
+
+            Doesn't that seem a little...impossible, to you?
+
+            Do you really think something like that was real?
+            """
+            menu:
+                "It's the only thing I can do.":
+                    s """
+                    Wait, what...
+
+                    What do you mean by that?
+
+                    That you have no other choice but to believe in something like that?
+
+                    Something so absurd?
+
+                    Do you think this is all a dream?
+
+                    Something that is only happening in your head?
+
+                    And then...
+
+                    What am I?
+
+                    Only a projection of yourself?
+
+                    Or a ghost stucked in your head?
+
+                    Is this what you...
+
+                    Oh...
+
+                    I-I'm sorry.
+
+                    I didn't wanted to get so angry, it's just that I...
+                    """
+                    menu:
+                        "Just believe in me...":
+                            s """
+                            I-I can do that, yes.
+                            """
+                        "It's understandable.":
+                            s """
+                            Thank you...
+                            """
+    s """
+    And...well, what do you remember about him?
+    """
+    menu:
+        "We spent time in a garden." if place:
+            pass
+            s """
+            Well I don't know many gardens, but you often tolked about one.
+
+            I remember it being very tiny, filled with different plants.
+
+            You used to spend many time in there.
+
+            It was nice hearing you talk about it.
+
+            I always let my mind flew to imagine it.
+            """
+        "He spoke about a melody." if melody:
+            pass
+            s """
+            A melody...
+
+            You indeed used to sing a melody all the time, when we were together.
+
+            So now you remember about it?
+
+            it reminds me of so many things...
+
+            Mostly of time passing too quickly and our laughs.
+            """
+        "It's still all blurred...":
+            s """
+            Well I guess that's the main topic in this story, huh?
+
+            You must be tired of that...
+
+            But after all we have just started, so don't worry!
+
+            I'm sure things will get better!
+            """
+    s """
+    Hmm but you know...
+
+    I'm still not so sure about all this.
+
+    So I think it's better to wait and see if you'll remember more!
+
+    And sorry, but...now I'm a bit tired.
+
+    We can talk more later, ok?
+
+    Bye!
+    """
+    scene roomd_aft
     with slowfade
     jump roomdownscreen3
 
@@ -1579,23 +1984,19 @@ label day2ghost:
     with slowfade
     play music "roomg_bgm.ogg" fadein (3)
     $ mood = 50
-    $ menth = 0
-    $ mem = 0
-    $ trauma = 0
-    $ guilt = False
     $ sofiatalk = False
     $ sofiatalk2 = False
     $ sofia = 5
-    $ guit = False
-    $ guitcheck = False
-    $ toy = False
-    $ toycheck = False
-    $ strangeman = False
-    $ scaryman = False
-    $ teddyrep = False
-    default allowm_choice = False
     """
-    aaa
+    An unknown time of the day.
+
+    You wake up, but...
+
+    Is this still your apartment?
+
+    It's identical.
+
+    But what are those shadows on the walls?
     """
     jump roomdownscreen1g
 
@@ -1644,7 +2045,11 @@ label roomupscreen1g:
     call screen roomupscreen1g
 label window1g:
     """
-    aaa
+    As you try to look outside the window...
+
+    You can't see anything.
+
+    Everything is surrounded by fog.
     """
     jump roomdownscreen1g
 label bed1g:
@@ -1653,17 +2058,23 @@ label bed1g:
     """
     jump roomupscreen1g
 label books1g:
+    show books
+    with dissolve
     """
     aaa
     """
+    hide books
+    with dissolve
     jump roomdownscreen1g
 label plant1g:
-    show plant
+    show plantb
     with dissolve
     """
-    Flowers are taking their time to grow.
+    They look so...
+
+    Colorless.
     """
-    hide plant
+    hide plantb
     with dissolve
     jump roomdownscreen1g
 label trash1g:
@@ -1671,8 +2082,6 @@ label trash1g:
     with dissolve
     """
     The usual trash bin.
-
-    Nothing new from it.
     """
     hide trash
     with dissolve
@@ -1681,78 +2090,76 @@ label phone1g:
     show phone
     with dissolve
     """
-    aaa
+    Nobody has called.
     """
     hide phone
     with dissolve
     jump roomdownscreen1g
 label tv1g:
     """
-    aaa
+    Only a pale screen.
     """
     jump roomdownscreen1g
 label cds1g:
     """
-    aaa
+    You don't feel like looking at the titles.
     """
     jump roomdownscreen1g
 label toy1g:
-    show teddybrok
-    with dissolve
-    """
-    An old teddy bear.
-
-    You're unable to toss it away.
-
-    Even after all this time, you can't undestand why.
-
-    Maybe you're sill connected with the person who gave it to you.
-    """
-    hide teddybrok
-    with dissolve
-    jump roomupscreen1g
+    if allowrep_choice == False:
+        show teddybrok
+        with dissolve
+        """
+        Why haven't you fixed it?
+        """
+        hide teddybrok
+        with dissolve
+        jump roomupscreen1g
+    if allowrep_choice == True:
+        show teddyrep
+        with dissolve
+        """
+        Is it watching at you?
+        """
+        hide teddyrep
+        with dissolve
+        jump roomupscreen1g
 label mirror1g:
-    show mirror
+    show mirrorb
     with dissolve
-    if sofiatalk2 == False:
+    if sofiatalk == False:
         """
-        There's only you.
+        There's a pale shadow on it.
         """
-        hide mirror
+        hide mirrorb
         with dissolve
         jump roomupscreen1g
     if sofiatalk2 == True and mood >= 55 or mood <= 45:
         """
-        There's a garden in the reflection.
-
-        It looks as if it's inviting you to enter.
+        The garden is inviting you.
 
         Do you go through the mirror?
         """
         menu:
             "Yes.":
-                hide mirror
+                hide mirrorb
                 with dissolve
                 jump memories2
             "Not now.":
-                hide mirror
+                hide mirrorb
                 with dissolve
                 jump roomupscreen1g
 label guit1g:
-    show guitar
+    show guitarb
     with dissolve
     """
-    This guitar...
-
-    As you watch it, you remember playing it sometimes.
-
-    But how much time has passed since then?
+    You have no desire to play it.
     """
-    hide guitar
+    hide guitarb
     with dissolve
     jump roomupscreen1g
 label door1g:
-    "I can't get outside, it's tightly closed."
+    "You can't get outside, it's tightly closed."
     jump roomdownscreen1g
 
 label computer1g:
@@ -1768,20 +2175,12 @@ label computer1g:
     if sofia <= 4 and toy == False:
         "Looks like she'll be occupied for some time."
         jump roomdownscreen1g
-    if guit == True:
-        jump sofiaguit
-    if toy == True:
-        jump sofiatoy
 
 label sofiagood1g:
     scene sofiah_d
     with slowfade
     s """
     It's nice seeing you smiling like this, you know?
-
-    Uhm, looks like your hair is a little messy!
-
-    Have you checked on yourself in the mirror, this morning?
     """
     jump sofiagoodfade1g
 label sofiasad1g:
@@ -1789,19 +2188,334 @@ label sofiasad1g:
     with slowfade
     s """
     Is it me or you seem a little down?
-
-    You look so tired and messy, too!
-
-    Have you checked on yourself in the mirror, this morning?
     """
     jump sofiasadfade1g
 label sofianeut1g:
     scene sofias_d
     with slowfade
     $ sofiatalk = True
+    $ acceptance = False
+    $ nolove = False
     """
+    Sofia is right there, on the screen.
+
+    She's waiting for you, as always.
+
+    She's reading from a voluminous book which title you can't read.
+
+    She lifts her head, watching you with a large smile.
+
+    But she instantly becomes worried.
     """
-    scene roomd_dawn
+    menu:
+        "You're still here?":
+            $ mood += 5
+            s """
+            Yes.
+
+            I told you, didn't I?
+
+            That I would always be here for you, no matter what.
+            """
+            menu:
+                "I was afraid you'd leave me.":
+                    $ mood += 5
+                    s """
+                    Oh...
+
+                    I would never do that!
+
+                    You're too much important form e to abandon you...
+
+                    You're the only person I have left.
+
+                    Without you I would...
+
+                    I would be completely alone.
+
+                    And loneliness makes everything so dark and sad.
+
+                    All the colours fade away in an instant.
+
+                    And then only darkness remains.
+                    """
+                "I'm still confused about this.":
+                    $ mood -= 5
+                    s """
+                    I do understand that...
+
+                    I know it's difficult to trust so simply a complete stranger.
+
+                    Or, at least, someone that is now a complete stranger.
+
+                    I do not know what I can do to convince you that I'm sincere, but...
+
+                    For now I can wait for you to retrieve your memories, at least.
+
+                    And I'll try to help you.
+                    """
+        "Don't you have things to do?":
+            $ mood -= 5
+            s """
+            Oh...
+
+            Well, normally I would.
+
+            But not now, so...
+
+            Waiting for you is the only thing I have to do.
+            """
+            menu:
+                "I still don't get why.":
+                    $ mood -= 5
+                    s """
+                    You don't?
+
+                    Well...
+
+                    How can I say that...
+
+                    I think it's easy to understand why...if you think about it carefully.
+
+                    Please just try to understand.
+
+                    Because it's a little embarassing to say that.
+
+                    For me, at least.
+
+                    And especially now that you barely know who I am.
+                    """
+                "Am I so important?":
+                    $ mood += 5
+                    s """
+                    Uhmm well...
+
+                    Yes, you are.
+
+                    Does it surprise you that much?
+
+                    I know the feeling of not being so much important for anyone, but...
+
+                    For me you are the most important person.
+
+                    I wouldn't be able to do anything without you...
+                    """
+    s """
+    I know this will sound stupid, but I want to be sincere.
+
+    It's so difficult to say this, but...
+
+    Normally I would be at the university, now.
+
+    All this situation may seem creepy, I know.
+
+    A girl you barely know talking to you through a computer...
+
+    And all this thing about your memory.
+
+    It's difficult to believe all this, right?
+
+    But the thing is that I've been so in love with you, in the past...
+
+    And I still am.
+
+    That's why I'm here.
+
+    That's why I've abandoned everything for you.
+
+    Those feelings are so strong that I cry every time I think about this.
+
+    And I can't help but asking myself why did we get in this situation.
+
+    What have we done to deserve this...
+    """
+    menu:
+        "I'm sorry for doubting.":
+            $ mood += 5
+            $ acceptance = True
+            s """
+            Thank you...
+
+            That makes me feel a little better.
+            """
+        "I understand...":
+            $ mood -= 5
+            $ nolove = True
+            s """
+            You know...
+
+            You have no obligations.
+
+            At all.
+
+            You don't have to love me.
+
+            The only thing I want is for you to be happy and feel better.
+
+            I don't want to see you get lost...
+            """
+    s """
+    I'm sorry...
+
+    I'm sorry for being like this.
+
+    I know I'm not strong and I can't fake it.
+
+    I tried but probably I've only made things worst.
+
+    You probably thought I was a creepy and suspicious girl...
+
+    The truth is that I wanted to show you a better side of me.
+
+    A side that often doesn't exist.
+
+    I'm so sorry...
+
+    Anyway, this is taking too much from me, so...
+
+    Let's change argument, ok?
+
+    I'm sorry but I really can't go on with it.
+
+    Not now, at least.
+
+    So, I...
+
+    I was waiting for you, but...
+
+    You look so...strange?
+
+    I mean, not for what I said, but...
+
+    Even before.
+
+    What happened?
+    """
+    menu:
+        "I've seen a man...":
+            s """
+            A man?
+
+            What do you mean?
+
+            Someone entered in your apartment?
+            """
+            menu:
+                "I think it was a memory.":
+                    s """
+                    A memory...?
+
+                    Well, I guess it's possible...
+
+                    Maybe you're getting flashes of your past?
+
+                    And those flashes help you to retrieve your entire memory piece by piece.
+
+                    Well, I think that's a good thing, isn't it?
+
+                    And what have you remembered of him?
+                    """
+                    menu:
+                        "He was scary...":
+                            s """
+                            Scary?
+
+                            Well, I guess it wasn't a pleasant memory, then...
+
+                            But whatever happened, I think it helped you, didn't it?
+
+                            At least now you are more sure about what surrounds you.
+
+                            And what happened in the past, even if only a little more than before.
+
+                            So...
+
+                            Well, I think it'd be better if I go rest for some time, ok?
+
+                            I'm feeling tired, now.
+
+                            Forgive me if I go away so suddenly but...
+
+                            I think you'd agree on the fact that today has been a hard day.
+
+                            We'll talk more later or tomorrow...bye.
+                            """
+                        "He said I'm nobody.":
+                            menu:
+                                "As I have no memory.":
+                                    s """
+                                    I do get the point, but...
+
+                                    Your memories are not lost forever.
+
+                                    You're slowly finding them.
+
+                                    And as long as there is your apartment and all the people you had around...
+
+                                    You are still someone.
+
+                                    At least for me, you are still someone.
+
+                                    Anyway, I...I feel a bit tired, now.
+
+                                    Do you mind if I rest for a bit?
+
+                                    We'll talk more later or...tomorrow.
+
+                                    Bye.
+                                    """
+                "No, it was through the mirror.":
+                    s """
+                    The mirror...?
+
+                    Are you...
+
+                    Are you serious?
+
+                    I mean, I know I told you to believe in me, so...
+
+                    Of course I'll believe you, but this...
+
+                    Don't you think it's a bit too much?
+
+                    Are you playing with me?
+                    """
+                    menu:
+                        "I would never!":
+                            s """
+                            Yeah, I...
+
+                            I'm sorry, it's just difficult.
+
+                            Can you give me some time to think?
+
+                            I'm sorry, I tried to go on with the conversation, but this...
+
+                            This is too difficult.
+
+                            At least for now.
+
+                            We'll talk more tomorrow, ok?
+
+                            Il'' go rest a little, now...bye.
+                            """
+                        "So you don't believe me...":
+                            s """
+                            Listen, I...
+
+                            I think we should both rest, now.
+
+                            I think you're still tired and confused.
+
+                            And I'm not capable of thinking straight, now.
+
+                            We...
+
+                            We'll talk more tomorrow.
+
+                            Bye...
+                            """
+    scene roomd_ghosts
     with slowfade
     jump roomdownscreen1g
 
@@ -1817,6 +2531,7 @@ label memories2:
         $ trauma += 1
         $ menth += 1
         """
+        bad memoryyyy
         """
         stop music fadeout (3)
         jump night1
@@ -1830,6 +2545,7 @@ label memories2:
         play music "mem_bgm.ogg" fadein (3)
         $ mem += 1
         """
+        good memoryyyy
         """
         stop music fadeout (3)
         jump night2

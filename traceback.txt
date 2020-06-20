@@ -1,44 +1,44 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "renpy/common/00start.rpy", line 185, in script
+  File "renpy/common/00start.rpy", line 189, in script
     python:
-  File "renpy/common/00start.rpy", line 185, in script
+  File "renpy/common/00start.rpy", line 189, in script
     python:
-  File "renpy/common/00start.rpy", line 186, in <module>
+  File "renpy/common/00start.rpy", line 190, in <module>
     renpy.execute_default_statement(True)
-  File "game/script.rpy", line 817, in set_default
-    default allowun_choice = False
-Exception: store.allowun_choice is being given a default a second time.
+  File "game/script.rpy", line 1722, in set_default
+    default allowm_choice = False
+Exception: store.allowm_choice is being given a default a second time.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\bootstrap.py", line 313, in bootstrap
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\bootstrap.py", line 316, in bootstrap
     renpy.main.main()
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\main.py", line 525, in main
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\main.py", line 578, in main
     run(restart)
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\main.py", line 139, in run
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\main.py", line 143, in run
     renpy.execution.run_context(True)
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\execution.py", line 892, in run_context
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\execution.py", line 908, in run_context
     context.run()
-  File "renpy/common/00start.rpy", line 185, in script
+  File "renpy/common/00start.rpy", line 189, in script
     python:
-  File "renpy/common/00start.rpy", line 185, in script
+  File "renpy/common/00start.rpy", line 189, in script
     python:
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\ast.py", line 900, in execute
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\ast.py", line 914, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\python.py", line 1930, in py_exec_bytecode
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\python.py", line 2028, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "renpy/common/00start.rpy", line 186, in <module>
+  File "renpy/common/00start.rpy", line 190, in <module>
     renpy.execute_default_statement(True)
-  File "D:\Games\Programmazione giochi\renpy-7.2.2-sdk\renpy\exports.py", line 3452, in execute_default_statement
+  File "C:\Users\thoma\OneDrive\Desktop\Renpy\renpy\exports.py", line 3495, in execute_default_statement
     i.set_default(start)
-  File "game/script.rpy", line 817, in set_default
-    default allowun_choice = False
-Exception: store.allowun_choice is being given a default a second time.
+  File "game/script.rpy", line 1722, in set_default
+    default allowm_choice = False
+Exception: store.allowm_choice is being given a default a second time.
 
 Windows-8-6.2.9200
-Ren'Py 7.2.2.491
+Ren'Py 7.3.5.606
 Reverie 
-Fri Jun 05 14:00:25 2020
+Fri Jun 19 17:18:09 2020

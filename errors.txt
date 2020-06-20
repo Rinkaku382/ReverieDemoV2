@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1175: expected end of line
-    stop movie "trauma1.ogv"
-               ^
+File "game/script.rpy", line 1809: expected menuitem
+    $ nofeel = True
+    ^
 
 Ren'Py Version: Ren'Py 7.3.5.606
-Fri Jun 12 00:51:02 2020
+Fri Jun 19 22:11:07 2020
