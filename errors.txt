@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1809: expected menuitem
-    $ nofeel = True
-    ^
+File "game/script.rpy", line 3024: expected statement.
+    "Which things?":
+                   ^
+
+File "game/script.rpy", line 3044: expected statement.
+    "Where were you?":
+                     ^
 
 Ren'Py Version: Ren'Py 7.3.5.606
-Fri Jun 19 22:11:07 2020
+Thu Jul 02 13:37:20 2020
